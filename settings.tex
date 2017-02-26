@@ -1,0 +1,92 @@
+% Support for changing between draft-style and published version.
+\newif\ifdraft
+%\drafttrue
+\draftfalse
+
+% Enable Æ
+\usepackage[utf8]{inputenc}
+
+% Enable strikethrough
+\usepackage[normalem]{ulem}
+% enable images
+\usepackage{graphicx}
+
+
+% Enable links
+\usepackage{hyperref}
+
+% Enable To-do notes
+\ifdraft
+	\usepackage[textsize=small]{todonotes}
+	\setlength{\marginparwidth}{1.4cm} 		
+\else
+	\usepackage[disable]{todonotes}
+\fi
+
+% Support for drafting and sketching
+\usepackage{xcolor}
+\definecolor{dark-cornflower-blue-2}{RGB}{17,85,204}
+\definecolor{dark-green-2}{RGB}{56,118,29}
+
+\ifdraft
+	\newcommand{\sk}[1]{{\color{dark-green-2}  #1}}
+	\newcommand{\dr}[1]{{\color{dark-cornflower-blue-2} #1}}
+	\newenvironment{sketch}{\color{dark-green-2}}{\ignorespacesafterend}
+	\newenvironment{draft}{\color{dark-cornflower-blue-2}}{\ignorespacesafterend}
+\else
+	\newcommand{\sk}[1]{#1}
+	\newcommand{\dr}[1]{#1}
+	\newenvironment{sketch}{}{}
+	\newenvironment{draft}{}{}
+\fi
+
+% Support for marking missing citations
+\newcommand{\source}[0]{{\color{blue}\textsuperscript{[\textsf{\textit{need cit.}}]}}}
+
+
+% Enable \cref
+\usepackage{cleveref}
+
+\usepackage[style=ieee,
+            urldate=iso8601,
+            maxnames=3,
+            backend=biber]{biblatex}
+            
+% Settings for source code listings
+\usepackage{listings}
+\lstset{ %
+  aboveskip=10pt,
+  belowskip=4pt,
+%  abovecaptionskip=0pt,
+%  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\fontsize{9pt}{10pt}\ttfamily,        % the size of the fonts that are used for the code
+%  belowcaptionskip=0pt,
+%  breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
+%  breakindent=17pt,
+%  postbreak=\space\space,
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+%  commentstyle=\color{commentgray},    % comment style
+%  deletekeywords={...},            % if you want to delete keywords from the given language
+%  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+%  escapeinside={@}{@},
+  frame=single,	                   % adds a frame around the code
+%  framesep=3pt,
+%  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+%  keywordstyle=\color{black}\bfseries,       % keyword style
+%  language=Haskell,                 % the language of the code
+%  otherkeywords={Type,Vect,Nat,pure,pureM,Eff,Effect,MkEff,sig,Address,EFFECT,!,<$>,<*>,:,::},           % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=7pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\ttfamily, % the style that is used for the line-numbers
+%  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+%  showstringspaces=false,          % underline spaces within strings only
+%  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+%  stringstyle=\color{stringmauve},     % string literal style
+%  tabsize=2,	                   % sets default tabsize to 2 spaces
+%  title=\lstname,                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+  xleftmargin=9pt,
+%  xrightmargin=10pt
+}
